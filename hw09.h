@@ -26,7 +26,7 @@ class my_str
 {
 	private:
 	char* buffer;
-	int capacity;
+	size_t capacity;
 
 	public:
 
@@ -58,7 +58,7 @@ class my_str
 	// index must be in bounds
 	char& operator[](const int index);
 
-	int length() const;
+	size_t length() const;
 
 	// returns the index of the first occurance of c in this my_str
 	// indices range from o to length()-1

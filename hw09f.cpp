@@ -25,7 +25,12 @@ my_str::my_str(const char *s)
 // copy constructor
 my_str::my_str(const my_str & s)
 {
-	free(this->buffer);
+	if (this->buffer != nullptr)
+	{
+		free(this->buffer);
+		this->buffer = nullptr;
+	}
+
 	this->buffer = strdup(s.buffer);
 	this->capacity = strlen(this->buffer);
 }
@@ -34,9 +39,10 @@ my_str::my_str(const my_str & s)
 
 // move constructor
 my_str::my_str(my_str&& s) noexcept
-	: capacity (std::move(s.capacity))
-	, buffer (std::exchange(s.buffer, nullptr))
+	: capacity (s.capacity)
+	, buffer (s.buffer) 
 {
+	s.buffer = nullptr;
 	s.capacity = 0;
 }
 
@@ -48,7 +54,12 @@ my_str& my_str::operator=(const my_str & s)
 	if (this == &s)
 		return *this;
 
-	free(this->buffer);
+	if (this->buffer != nullptr)
+	{
+		free(this->buffer);
+		this->buffer = nullptr;
+	}
+
 	this->buffer = strdup(s.buffer);
 	this->capacity = strlen(this->buffer);
 
@@ -60,11 +71,20 @@ my_str& my_str::operator=(const my_str & s)
 // overloaded assignment operator (move '=' operator)
 my_str& my_str::operator=(my_str && s) noexcept
 {
+	if (this == &s)
+		return *this;
+
 	// cleanup
-	free(this->buffer);
+	if (this->buffer != nullptr)
+	{
+		free(this->buffer);
+		this->buffer = nullptr;
+	}
 	// member wise move
-	this->capacity = std::move(s.capacity);
-	this->buffer = std::exchange(s.buffer, nullptr);
+	this->capacity = s.capacity;
+	this->buffer = s.buffer;
+
+	s.buffer = nullptr;
 	s.capacity = 0;
 
 	return *this;
@@ -94,7 +114,7 @@ char& my_str::operator[](const int index)
 
 
 // returns the capacity of the c-string in question
-int my_str::length() const 
+size_t my_str::length() const 
 {
 	return this->capacity;
 }
@@ -162,7 +182,7 @@ bool my_str::operator==(const my_str & s) const
 // overloaded "+", concatenates this and s into a new my_str
 my_str my_str::operator+(const my_str & s) const
 {
-	char* newStr;
+	char newStr[this->capacity + s.capacity];
 	strcpy(newStr, this->buffer);
 	strcat(newStr, s.buffer);
 
@@ -174,11 +194,16 @@ my_str my_str::operator+(const my_str & s) const
 // overloaded "+=", concatenates s onto the end of this
 my_str& my_str::operator+=(const my_str & s)
 {
-	char* newStr;
+	char newStr[this->capacity + s.capacity];
 	strcpy(newStr, this->buffer);
 	strcat(newStr, s.buffer);
-	
-	free(this->buffer);
+
+	if (this->buffer != nullptr)
+	{	
+		free(this->buffer);
+		this->buffer = nullptr;
+	}
+
 	this->buffer = strdup(newStr);
 	this->capacity = strlen(this->buffer);
 
@@ -190,7 +215,7 @@ my_str& my_str::operator+=(const my_str & s)
 // reverses the string within this and returns a my_obj containing that string
 my_str my_str::reverse() const
 {
-	char* newStr;
+	char newStr[this->capacity];
 	strcpy(newStr, this->buffer);
 	
 	for (int i = 0; i < this->capacity; i++)
@@ -214,8 +239,13 @@ void my_str::read(std::istream & in)
 {
 	char newStr[256];
 	in.getline(newStr, 256);
-	
-	free(this->buffer);
+
+	if (this->buffer = nullptr)
+	{	
+		free(this->buffer);
+		this->buffer = nullptr;
+	}
+
 	this->buffer = strdup(newStr);
 	this->capacity = strlen(newStr);
 }
@@ -225,6 +255,9 @@ void my_str::read(std::istream & in)
 // destruct a my_str
 my_str::~my_str()
 {
-	if (this->buffer != nullptr)
-		free(this->buffer);
+	if (this->buffer == nullptr)
+		return;
+
+	free(this->buffer);
+	this->buffer = nullptr;
 }
