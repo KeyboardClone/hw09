@@ -240,7 +240,7 @@ void my_str::read(std::istream & in)
 	char newStr[256];
 	in.getline(newStr, 256);
 
-	if (this->buffer = nullptr)
+	if (this->buffer != nullptr)
 	{	
 		free(this->buffer);
 		this->buffer = nullptr;
