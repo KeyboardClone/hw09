@@ -225,5 +225,6 @@ void my_str::read(std::istream & in)
 // destruct a my_str
 my_str::~my_str()
 {
-	free(this->buffer);
+	if (this->buffer != nullptr)
+		free(this->buffer);
 }
