@@ -25,7 +25,7 @@ int main()
         testIndexOf();
         testConcat();
         testCompare();
-
+        testIndexAccess();
 	}
 	catch (int i)
 	{
@@ -55,6 +55,12 @@ int main()
                 break;
             case 7:
                 std::cout << "Entered blank input into a my_str within testCompare()" << std::endl;
+                break;
+            case 8:
+                std::cout << "Entered an invalid int value within testIndexAccess()" << std::endl;
+                break;
+            case 9:
+                std::cout << "Attempted to access an out of bounds character within the my_str buffer in testIndexAccess()" << std::endl;
                 break;
 
             default:
