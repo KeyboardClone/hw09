@@ -16,6 +16,8 @@
 // the dereferenced s
 my_str::my_str(const char *s)
 {
+    // dynamically allocates a single c-string into memory, setting this buffer
+    // to point to it
 	this->buffer = strdup(s);
 	this->capacity = strlen(s);
 }
@@ -25,12 +27,14 @@ my_str::my_str(const char *s)
 // copy constructor
 my_str::my_str(const my_str & s)
 {
+    // cleanup of prior c-string buffer held
 	if (this->buffer != nullptr)
 	{
 		free(this->buffer);
 		this->buffer = nullptr;
 	}
 
+    // reorients buffer to point to a new c-string within mem
 	this->buffer = strdup(s.buffer);
 	this->capacity = strlen(this->buffer);
 }
@@ -42,8 +46,8 @@ my_str::my_str(my_str&& s) noexcept
 	: capacity (s.capacity)
 	, buffer (s.buffer) 
 {
+    // de-links my_str object s from what it previously owned
 	s.buffer = nullptr;
-	s.capacity = 0;
 }
 
 
@@ -51,18 +55,23 @@ my_str::my_str(my_str&& s) noexcept
 // overloaded assignment operator (deep copy '=' operator)
 my_str& my_str::operator=(const my_str & s)
 {
+    // if we are attempting to perform a deep copy on the same
+    // object, we should avoid trying to mess with anything in memory
 	if (this == &s)
 		return *this;
 
+    // cleanup
 	if (this->buffer != nullptr)
 	{
 		free(this->buffer);
 		this->buffer = nullptr;
 	}
 
+    // makes new data for this my_str object to point to
 	this->buffer = strdup(s.buffer);
 	this->capacity = strlen(this->buffer);
 
+    // returns this
 	return *this;
 }
 
@@ -71,6 +80,7 @@ my_str& my_str::operator=(const my_str & s)
 // overloaded assignment operator (move '=' operator)
 my_str& my_str::operator=(my_str && s) noexcept
 {
+    // keeps from trying to move the same object in memory
 	if (this == &s)
 		return *this;
 
@@ -80,12 +90,13 @@ my_str& my_str::operator=(my_str && s) noexcept
 		free(this->buffer);
 		this->buffer = nullptr;
 	}
-	// member wise move
+
+	// has this my_str object point to s's data members
 	this->capacity = s.capacity;
 	this->buffer = s.buffer;
 
+    // de-links s from its data members
 	s.buffer = nullptr;
-	s.capacity = 0;
 
 	return *this;
 }
@@ -95,6 +106,9 @@ my_str& my_str::operator=(my_str && s) noexcept
 // overloaded [] operator
 char& my_str::operator[](const int index)
 {
+    // will attempt to return the index of this->buffer the user wants to access
+    // through the '[]' operator, throws and exception if the user attempts to access
+    // out of bounds data
 	try
 	{
 		if (index > capacity || index < 0)
@@ -124,12 +138,16 @@ size_t my_str::length() const
 // returns the index of the first occurance of c, returns -1 if unfound
 int my_str::indexOf(char c) const
 {
+    // searches through this->buffer in order to find the first instance of
+    // the character within c
 	for (int i = 0; i < this->capacity - 1; i++)
 	{
 		if (this->buffer[i] == c)
 			return i;
 	}
 
+    // reaching here should only be possible if c was not found within this->buffer
+    // thus we must return -1 to indicate that the character was not found
 	return -1;
 }
 
@@ -138,11 +156,18 @@ int my_str::indexOf(char c) const
 // returns the index of the first occurence of pat, returns -1 if unfound
 int my_str::indexOf(const my_str & pat) const
 {
+    // searches for wherever pat.buffer may appear within this->buffer,
+    // returns a nullptr in the event none is found
 	char* c = strstr(this->buffer, pat.buffer);
 
+    // if c points to nullptr, we return a -1 to indicate that it pat.buffer
+    // is not in this->buffer
 	if (c == nullptr)
 		return -1;
 
+    // this loop will go through the process of discovering where in this->buffer
+    // pat.buffer appears, as reaching this point indicates that it does exist
+    // within this->buffer
 	int index = -1;
 	bool indexFound = false;
 	while (index < this->capacity - 1 && !indexFound)
@@ -171,6 +196,8 @@ int my_str::indexOf(const my_str & pat) const
 // overloaded "==" comparison, compares the c-string buffers 
 bool my_str::operator==(const my_str & s) const
 {
+    // compares this->buffer and s.buffer's c-string contents,
+    // returns true if they are the same
 	if (strcmp(this->buffer, s.buffer) == 0)
 		return true;
 
@@ -182,10 +209,22 @@ bool my_str::operator==(const my_str & s) const
 // overloaded "+", concatenates this and s into a new my_str
 my_str my_str::operator+(const my_str & s) const
 {
+    // sets newStr to have as many character positions as both
+    // this and s combined
 	char newStr[this->capacity + s.capacity];
-	strcpy(newStr, this->buffer);
-	strcat(newStr, s.buffer);
 
+    // concatenates s.buffer onto the end of this->buffer,
+    // so long as this->buffer and s.buffer do not point to null
+    // if either of them do, their part is reduced to ""
+    if (this->buffer != nullptr)
+        strcpy(newStr, this->buffer);
+    else
+        strcpy(newStr, "");
+
+    if (s.buffer != nullptr)
+        strcat(newStr, s.buffer);
+
+    // returns a my_str object using this newly create c-string
 	return my_str(newStr);
 }
 
@@ -194,19 +233,34 @@ my_str my_str::operator+(const my_str & s) const
 // overloaded "+=", concatenates s onto the end of this
 my_str& my_str::operator+=(const my_str & s)
 {
+    // sets newStr to have as many character positions as both
+    // this and s combined
 	char newStr[this->capacity + s.capacity];
-	strcpy(newStr, this->buffer);
-	strcat(newStr, s.buffer);
 
+    // concatenates s.buffer onto the end of this->buffer,
+    // so long as this->buffer and s.buffer do not point to null
+    // if either of them do, their part is reduced to ""
+    if (this->buffer != nullptr)
+        strcpy(newStr, this->buffer);
+    else
+        strcpy(newStr, "");
+
+    if (s.buffer != nullptr)
+        strcat(newStr, s.buffer);
+
+    // performs cleanup on whatever this->buffer is presently pointing to,
+    // unless it is pointing to a nullptr location
 	if (this->buffer != nullptr)
 	{	
 		free(this->buffer);
 		this->buffer = nullptr;
 	}
 
+    // modifies this my_str object using utilizing this newStr data
 	this->buffer = strdup(newStr);
 	this->capacity = strlen(this->buffer);
 
+    // returns a reference(?) to this object
 	return *this;
 }
 
@@ -215,12 +269,21 @@ my_str& my_str::operator+=(const my_str & s)
 // reverses the string within this and returns a my_obj containing that string
 my_str my_str::reverse() const
 {
+    // if this->buffer points to nothing, there is nothing to reverse, so we
+    // should return an empty my_str object
+    if (this->buffer == nullptr)
+        return my_str();
+
+    // reaching this point, we can safely assume there is something pointed to
+    // by this->buffer, so let's reverse that string
 	char newStr[this->capacity];
-	strcpy(newStr, this->buffer);
-	
+
+    // stores the reversed form of this->buffer into newStr
 	for (int i = 0; i < this->capacity; i++)
 		newStr[i] = this->buffer[this->capacity - (1 + i)];
 
+    // returns a my_str object using the now reversed form of this->buffer
+    // within newStr to initialize that object
 	return my_str(newStr);
 }
 
@@ -229,7 +292,12 @@ my_str my_str::reverse() const
 // prints out this my_str to the ostream out
 void my_str::print(std::ostream & out) const
 {
-	out << this->buffer;
+    // simply displays this->buffer using whatever ostream object is passed in,
+    // so long as this->buffer is not null
+    if (this->buffer != nullptr)
+        out << this->buffer;
+
+    return;
 }
 
 
@@ -237,17 +305,23 @@ void my_str::print(std::ostream & out) const
 // reads a word from the istream using getline and stores the characters into this my_str buffer
 void my_str::read(std::istream & in)
 {
+    // creates a c-string of 256 characters (could be longer if so desired) for the upcoming input
+    // to be stored in
 	char newStr[256];
 	in.getline(newStr, 256);
 
+    // performs memory cleanup if this->buffer is not null
 	if (this->buffer != nullptr)
 	{	
 		free(this->buffer);
 		this->buffer = nullptr;
 	}
 
+    // sets this->buffer to point to the newly input user c-string
 	this->buffer = strdup(newStr);
 	this->capacity = strlen(newStr);
+
+    return;
 }
 
 
@@ -255,9 +329,15 @@ void my_str::read(std::istream & in)
 // destruct a my_str
 my_str::~my_str()
 {
+    // if this->buffer points to nullptr, we immediately end the destructor
+    // call as this particular buffer is empty and we need not perform any
+    // memory cleanup
 	if (this->buffer == nullptr)
 		return;
 
+    // cleans up memory
 	free(this->buffer);
 	this->buffer = nullptr;
+
+    this->capacity = 0;
 }
