@@ -123,7 +123,10 @@ char& my_str::operator[](const int index)
 // returns the capacity of the c-string in question
 size_t my_str::length() const 
 {
-	return this->capacity;
+    if (this->buffer != nullptr)
+	    return this->capacity;
+
+    return 0;
 }
 
 
