@@ -23,6 +23,7 @@ int main()
                         // if we throw an error of 2, the input failed
 				        //	when trying to read from the file
         testIndexOf();
+        testConcat();
 
 	}
 	catch (int i)

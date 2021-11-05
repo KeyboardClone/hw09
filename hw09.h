@@ -111,8 +111,8 @@ class my_str
 // print and read methods correctly
 inline std::ostream& operator<<(std::ostream& out, const my_str& str)
 {       
-        str.print(out);
-        return out;
+    str.print(out);
+    return out;
 }       
 
 inline std::istream& operator>>(std::istream& in, my_str& str)
@@ -130,6 +130,10 @@ inline std::istream& operator>>(std::istream& in, my_str& str)
 my_str copyConstructorTest(my_str l);
 
 void testReverse();
+
+void testIndexOf();
+
+void testConcat();
 
 // write more test function prototytpes here
 
