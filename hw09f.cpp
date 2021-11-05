@@ -35,8 +35,10 @@ my_str::my_str(const my_str & s)
 	}
 
     // reorients buffer to point to a new c-string within mem
-	this->buffer = strdup(s.buffer);
-	this->capacity = strlen(this->buffer);
+    if (s.buffer != nullptr)
+        this->buffer = strdup(s.buffer);
+
+    this->capacity = s.capacity;
 }
 
 
@@ -64,8 +66,9 @@ my_str& my_str::operator=(const my_str & s)
 	}
 
     // makes new data for this my_str object to point to
-	this->buffer = strdup(s.buffer);
-	this->capacity = strlen(this->buffer);
+    if (s.buffer != nullptr)
+	    this->buffer = strdup(s.buffer);
+	this->capacity = s.capacity;
 
     // returns this
 	return *this;
@@ -88,8 +91,8 @@ my_str& my_str::operator=(my_str && s) noexcept
 	}
 
 	// has this my_str object point to s's data members
-	this->capacity = std::move(s.capacity);
 	this->buffer = std::exchange(s.buffer, nullptr);
+    this->capacity = std::move(s.capacity);
 
 	return *this;
 }
@@ -104,7 +107,7 @@ char& my_str::operator[](const int index)
     // out of bounds data
 	try
 	{
-		if (index > capacity || index < 0)
+		if (index > capacity || index < 0 || this->buffer == nullptr)
 		{
 			std::out_of_range e(std::to_string(index));
 			throw e;
@@ -134,6 +137,11 @@ size_t my_str::length() const
 // returns the index of the first occurance of c, returns -1 if unfound
 int my_str::indexOf(char c) const
 {
+    // in the event that this->buffer is a nullptr, we don't want to try and
+    // find an index of null
+    if (this->buffer == nullptr)
+        return -1;
+
     // searches through this->buffer in order to find the first instance of
     // the character within c
 	for (int i = 0; i < this->capacity - 1; i++)
@@ -152,6 +160,9 @@ int my_str::indexOf(char c) const
 // returns the index of the first occurence of pat, returns -1 if unfound
 int my_str::indexOf(const my_str & pat) const
 {
+    if  (this->buffer == nullptr || pat.buffer == nullptr)
+        return -1;
+
     // searches for wherever pat.buffer may appear within this->buffer,
     // returns a nullptr in the event none is found
 	char* c = strstr(this->buffer, pat.buffer);
@@ -192,11 +203,17 @@ int my_str::indexOf(const my_str & pat) const
 // overloaded "==" comparison, compares the c-string buffers 
 bool my_str::operator==(const my_str & s) const
 {
-    // compares this->buffer and s.buffer's c-string contents,
-    // returns true if they are the same
-	if (strcmp(this->buffer, s.buffer) == 0)
-		return true;
+    if (this->buffer != nullptr && s.buffer != nullptr)
+    {
+        // compares this->buffer and s.buffer's c-string contents,
+        // returns true if they are the same
+        if (strcmp(this->buffer, s.buffer) == 0)
+            return true;
+        else
+            return false;
+    }
 
+    // this indicates that either this->buffer or s.buffer points to nullptr
 	return false;
 }
 
