@@ -25,8 +25,22 @@ int main()
 	}
 	catch (int i)
 	{
-		std::cout << "Got an exception: " << i << std::endl;
+		std::cout << "Got an exception: ";
+
+        switch(i)
+        {
+            case 1:
+                std::cout << "Unable to read input into my_str" << std::endl;
+                break;
+
+            default:
+                std::cout << "Error code " << i << std::endl;
+        }
 	}
+    catch (std::out_of_range &e)
+    {
+        std::cout << "Out of range exception: " << e.what() << std::endl;
+    }
 
 	// std::cerr << "Net memory allocated at program end: "
 	//    	  << std::NumAllocations << std::endl;
