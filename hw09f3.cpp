@@ -15,15 +15,35 @@ void testIndexOf()
 {
     my_str userInput, searchForStr;
     char searchForC;
-    int index = 0;
+    int index;
 
     // prompt the user for a c-string to store within userInput
-    std::cout << "Enter a string: ";
-    std::cin >> userInput;
+    try
+    {
+        std::cout << "Enter a string: ";
+        std::cin >> userInput;
+
+        if (std::cin.fail())
+            throw 3;
+    }
+    catch(int e)
+    {
+        throw e;
+    }
 
     // prompt the user for a character to search for within userInput
-    std::cout << "Enter a character to search for in \"" << userInput << "\": ";
-    std::cin >> searchForC;
+    try
+    {
+        std::cout << "Enter a character to search for in \"" << userInput << "\": ";
+        std::cin >> searchForC;
+
+        if (std::cin.fail())
+            throw 4;
+    }
+    catch(int e)
+    {
+        throw e;
+    }
 
     // clear the input for the next cin call since it uses getline() within my_str
     std::cin.clear();
@@ -39,8 +59,18 @@ void testIndexOf()
         std::cout << "\'" << searchForC << "\' is not within \"" << userInput << "\"" << std::endl;
 
     // prompt the user with a string to search for within userInput
-    std::cout << "Enter a string to search for in \"" << userInput << "\": ";
-    std::cin >> searchForStr;
+    try
+    {
+        std::cout << "Enter a string to search for in \"" << userInput << "\": ";
+        std::cin >> searchForStr;
+
+        if (std::cin.fail())
+            throw 5;
+    }
+    catch(int e)
+    {
+        throw e;
+    }
 
     // determine what the index of searchForStr is within userInput
     index = userInput.indexOf(searchForStr);

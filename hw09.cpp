@@ -36,8 +36,16 @@ int main()
                 std::cout << "Unable to open the input file" << std::endl;
                 break;
             case 2:
-                std::cout << "Unable to read input into my_str" << std::endl;
+                std::cout << "Unable to read input into my_str in testReverse()" << std::endl;
                 break;
+            case 3:
+                std::cout << "Unable to read input into my_str in testIndexOf()" << std::endl;
+                break;
+            case 4:
+                std::cout << "Unable to read input into char in testIndexOf()" << std::endl;
+                break;
+            case 5:
+                std::cout << "Unable to read input into my_str in testIndexOf()" << std::endl;
 
             default:
                 std::cout << "Error code " << i << std::endl;
