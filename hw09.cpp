@@ -18,9 +18,12 @@ int main()
 	
 	try
 	{
-		testReverse();	// if we throw an error of 1, the input failed
+		testReverse();	// if we throw an error of 1, the file failed to
+                        //  open properly
+                        // if we throw an error of 2, the input failed
 				        //	when trying to read from the file
-		                // put more test function calls here written just above
+        testIndexOf();
+
 	}
 	catch (int i)
 	{

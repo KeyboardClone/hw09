@@ -180,7 +180,7 @@ int my_str::indexOf(const my_str & pat) const
 	while (index < this->capacity - 1 && !indexFound)
 	{
 		index++;
-		if (this->buffer[index] == c[0])
+		if (this->buffer[index] == *c)
 		{
 			for (int i = 1; i < pat.capacity - 1; ++i)
 			{
