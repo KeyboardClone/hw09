@@ -30,4 +30,4 @@ clean:
 	rm hw09 *.o *.tar
 
 tar:
-	tar cfv hw09.tar hw09.h hw09.cpp hw09f.cpp hw09f1.cpp hw09f2.cpp hw09f3.cpp hw09f4.cpp hw09f5.cpp hw09f6.cpp input.txt
+	tar cfv hw09.tar hw09.h hw09.cpp hw09f.cpp hw09f1.cpp hw09f2.cpp hw09f3.cpp hw09f4.cpp hw09f5.cpp hw09f6.cpp hw09.scr Makefile
