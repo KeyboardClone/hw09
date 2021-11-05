@@ -34,9 +34,9 @@ void testIndexOf()
 
     // display the results of the search
     if (index != -1)
-        std::cout << searchForC << " found at index " << index << std::endl;
+        std::cout << "\'" << searchForC << "\' found at index " << index << std::endl;
     else
-        std::cout << searchForC << " is not within \"" << userInput << "\"" << std::endl;
+        std::cout << "\'" << searchForC << "\' is not within \"" << userInput << "\"" << std::endl;
 
     // prompt the user with a string to search for within userInput
     std::cout << "Enter a string to search for in \"" << userInput << "\": ";
@@ -46,9 +46,9 @@ void testIndexOf()
     index = userInput.indexOf(searchForStr);
 
     if (index != -1)
-        std::cout << searchForStr << " found at index " << index << std::endl;
+        std::cout << "\"" << searchForStr << "\" found at index " << index << std::endl;
     else
-        std::cout << searchForStr << " not found in \"" << userInput << "\"" << std::endl;
+        std::cout << "\"" << searchForStr << "\" not found in \"" << userInput << "\"" << std::endl;
 
     return;
 }
