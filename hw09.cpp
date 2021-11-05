@@ -24,12 +24,15 @@ int main()
 				        //	when trying to read from the file
         testIndexOf();
         testConcat();
+        testCompare();
 
 	}
 	catch (int i)
 	{
 		std::cout << "Got an exception: ";
 
+        // exception message display, interprets the error code it was given and
+        // displays a corresponding error message
         switch(i)
         {
             case 1:
@@ -39,13 +42,20 @@ int main()
                 std::cout << "Unable to read input into my_str in testReverse()" << std::endl;
                 break;
             case 3:
-                std::cout << "Unable to read input into my_str in testIndexOf()" << std::endl;
+                std::cout << "Unable to read input into a my_str in testIndexOf()" << std::endl;
                 break;
             case 4:
-                std::cout << "Unable to read input into char in testIndexOf()" << std::endl;
+                std::cout << "Entered blank input into a my_str within testIndexOf()" << std::endl;
                 break;
             case 5:
-                std::cout << "Unable to read input into my_str in testIndexOf()" << std::endl;
+                std::cout << "Unable to read input into char in testIndexOf()" << std::endl;
+                break;
+            case 6:
+                std::cout << "Unable to read input into a my_str in testCompare()" << std::endl;
+                break;
+            case 7:
+                std::cout << "Entered blank input into a my_str within testCompare()" << std::endl;
+                break;
 
             default:
                 std::cout << "Error code " << i << std::endl;

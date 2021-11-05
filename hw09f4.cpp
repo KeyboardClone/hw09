@@ -1,5 +1,5 @@
 // ============================================================================
-// File: hw09f3.cpp
+// File: hw09f4.cpp
 // ============================================================================
 // Programmer: Jonathan Hungate
 // Class: CS1C
@@ -26,6 +26,7 @@ void testConcat()
 
     std::cout << "newStr = firstStr + secStr => " << newStr << std::endl;
 
+    // concatenates newStr and firstStr again into a new c-string
     newStr += firstStr;
     std::cout << "newStr += firstStr => " << newStr << std::endl;
 

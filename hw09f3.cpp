@@ -25,6 +25,8 @@ void testIndexOf()
 
         if (std::cin.fail())
             throw 3;
+        if (userInput == "")
+            throw 4;
     }
     catch(int e)
     {
@@ -38,7 +40,7 @@ void testIndexOf()
         std::cin >> searchForC;
 
         if (std::cin.fail())
-            throw 4;
+            throw 5;
     }
     catch(int e)
     {
@@ -65,7 +67,9 @@ void testIndexOf()
         std::cin >> searchForStr;
 
         if (std::cin.fail())
-            throw 5;
+            throw 3;
+        if (searchForStr == "")
+            throw 4;
     }
     catch(int e)
     {

@@ -197,6 +197,22 @@ bool my_str::operator==(const my_str & s) const
 }
 
 
+// overloaded "==" comparison, compares this->buffer to a const c-string
+bool my_str::operator==(const char* s) const
+{
+    // checks to see if this->buffer is presently null, returning false if such is the case
+    if (this->buffer == nullptr)
+        return false;
+
+    // compares this->buffer and s, returning true if they are the same
+    if (strcmp(this->buffer, s) == 0)
+        return true;
+
+    // defaults to returning false
+    return false;
+}
+
+
 
 // overloaded "+", concatenates this and s into a new my_str
 my_str my_str::operator+(const my_str & s) const

@@ -76,6 +76,11 @@ class my_str
 	// write and use strcmp to implement this function
 	bool operator==(const my_str &s) const;
 
+    // true if the my_str object and the c-string contain the same chars in same positions
+    // .. e.g. "abc" == "abc" evaluates true
+    // write and use strcmp to implement this function
+    bool operator==(const char* s) const;
+
 	// concatenates this and s to make a new my_str
 	// e.g., "abc" + "def" returns "abcdef"
 	// write and use str2dup() to implement this function,
@@ -134,6 +139,8 @@ void testReverse();
 void testIndexOf();
 
 void testConcat();
+
+void testCompare();
 
 // write more test function prototytpes here
 
