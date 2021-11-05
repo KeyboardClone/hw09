@@ -142,6 +142,8 @@ void testConcat();
 
 void testCompare();
 
+void testIndexAccess();
+
 // write more test function prototytpes here
 
 

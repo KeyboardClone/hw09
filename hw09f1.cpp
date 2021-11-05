@@ -16,4 +16,3 @@ my_str copyConstructorTest(my_str l)
 {
 	return l;
 }
-
