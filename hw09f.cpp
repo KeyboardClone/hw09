@@ -172,30 +172,9 @@ int my_str::indexOf(const my_str & pat) const
 	if (c == nullptr)
 		return -1;
 
-    // this loop will go through the process of discovering where in this->buffer
-    // pat.buffer appears, as reaching this point indicates that it does exist
-    // within this->buffer
-	int index = -1;
-	bool indexFound = false;
-	while (index < this->capacity - 1 && !indexFound)
-	{
-		index++;
-		if (this->buffer[index] == *c)
-		{
-			for (int i = 1; i < pat.capacity - 1; ++i)
-			{
-				if (this->buffer[index + i] != c[i])
-				{
-					indexFound = false;
-					i = pat.capacity;
-				}
-				else
-					indexFound = true;
-			}
-		}
-	}
-
-	return index;
+    // subtracting the length of the c-string pointer c from this->capacity should
+    // result in the index of pat.buffer's appearance in this->buffer
+    return (int)(this->capacity - strlen(c));
 }
 
 
