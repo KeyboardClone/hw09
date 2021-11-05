@@ -19,9 +19,8 @@ int main()
 	try
 	{
 		testReverse();	// if we throw an error of 1, the input failed
-				//	when trying to read from the file
-		// put more test function calls here written just above
-		std::cout << "after testReverse()" << std::endl;
+				        //	when trying to read from the file
+		                // put more test function calls here written just above
 	}
 	catch (int i)
 	{
@@ -30,6 +29,9 @@ int main()
         switch(i)
         {
             case 1:
+                std::cout << "Unable to open the input file" << std::endl;
+                break;
+            case 2:
                 std::cout << "Unable to read input into my_str" << std::endl;
                 break;
 

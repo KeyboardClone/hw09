@@ -43,12 +43,8 @@ my_str::my_str(const my_str & s)
 
 // move constructor
 my_str::my_str(my_str&& s) noexcept
-	: capacity (s.capacity)
-	, buffer (s.buffer) 
-{
-    // de-links my_str object s from what it previously owned
-	s.buffer = nullptr;
-}
+	: capacity (std::move(s.capacity))
+	, buffer (std::exchange(s.buffer, nullptr)) {}
 
 
 
@@ -92,11 +88,8 @@ my_str& my_str::operator=(my_str && s) noexcept
 	}
 
 	// has this my_str object point to s's data members
-	this->capacity = s.capacity;
-	this->buffer = s.buffer;
-
-    // de-links s from its data members
-	s.buffer = nullptr;
+	this->capacity = std::move(s.capacity);
+	this->buffer = std::exchange(s.buffer, nullptr);
 
 	return *this;
 }
