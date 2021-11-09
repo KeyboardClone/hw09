@@ -132,6 +132,8 @@ inline std::istream& operator>>(std::istream& in, my_str& str)
 // follow the example and write a function to test each method.
 // Name each of these functions so they clearly indicate what they
 // are testing
+char *strdup(const char *s);
+
 my_str copyConstructorTest(my_str l);
 
 void testReverse();
