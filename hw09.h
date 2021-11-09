@@ -132,7 +132,9 @@ inline std::istream& operator>>(std::istream& in, my_str& str)
 // follow the example and write a function to test each method.
 // Name each of these functions so they clearly indicate what they
 // are testing
-char *strdup(const char *s);
+char *strdup(const char *s); // hw09f7.cpp
+
+const char *strstr(const char * str1, const char * str2); // hw09f8.cpp
 
 my_str copyConstructorTest(my_str l);
 

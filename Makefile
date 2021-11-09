@@ -2,8 +2,8 @@ CC = g++
 
 all: hw09
 
-hw09: hw09.h hw09.cpp hw09f.o hw09f1.o hw09f2.o hw09f3.o hw09f4.o hw09f5.o hw09f6.o hw09f7.o
-	$(CC) hw09.cpp -o hw09 hw09f.o hw09f1.o hw09f2.o hw09f3.o hw09f4.o hw09f5.o hw09f6.o hw09f7.o -fsanitize=address
+hw09: hw09.h hw09.cpp hw09f.o hw09f1.o hw09f2.o hw09f3.o hw09f4.o hw09f5.o hw09f6.o hw09f7.o hw09f8.o
+	$(CC) hw09.cpp -o hw09 hw09f.o hw09f1.o hw09f2.o hw09f3.o hw09f4.o hw09f5.o hw09f6.o hw09f7.o hw09f8.o -fsanitize=address
 
 hw09f.o: hw09.h hw09f.cpp
 	$(CC) -c hw09f.cpp -o hw09f.o
@@ -29,8 +29,11 @@ hw09f6.o: hw09.h hw09f6.cpp
 hw09f7.o: hw09.h hw09f7.cpp
 	$(CC) -c hw09f7.cpp -o hw09f7.o
 
+hw09f8.o: hw09.h hw09f8.cpp
+	$(CC) -c hw09f8.cpp -o hw09f8.o
+
 clean:
 	rm hw09 *.o *.tar
 
 tar:
-	tar cfv hw09.tar hw09.h hw09.cpp hw09f.cpp hw09f1.cpp hw09f2.cpp hw09f3.cpp hw09f4.cpp hw09f5.cpp hw09f6.cpp hw09f7.cpp hw09.scr Makefile
+	tar cfv hw09.tar hw09.h hw09.cpp hw09f.cpp hw09f1.cpp hw09f2.cpp hw09f3.cpp hw09f4.cpp hw09f5.cpp hw09f6.cpp hw09f7.cpp hw09f8.cpp hw09.scr Makefile
