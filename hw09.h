@@ -136,6 +136,8 @@ char *strdup(const char *s); // hw09f7.cpp
 
 const char *strstr(const char * str1, const char * str2); // hw09f8.cpp
 
+void strrev(char *dest, char *src); // hw09f9.cpp
+
 my_str copyConstructorTest(my_str l);
 
 void testReverse();

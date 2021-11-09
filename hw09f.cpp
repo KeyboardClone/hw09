@@ -287,8 +287,7 @@ my_str my_str::reverse() const
 	char newStr[this->capacity];
 
     // stores the reversed form of this->buffer into newStr
-	for (int i = 0; i < this->capacity; i++)
-		newStr[i] = this->buffer[this->capacity - (1 + i)];
+	strrev(newStr, this->buffer);
 
     // returns a my_str object using the now reversed form of this->buffer
     // within newStr to initialize that object
