@@ -11,6 +11,11 @@
 
 
 
+// this will count the number of allocations made with this class, initialized to 0
+int my_str::NumAllocations = 0;
+
+
+
 // Single Parameter constructor
 // Dynamically allocates a c-string on the freestore based on the contents of 
 // the dereferenced s
@@ -20,6 +25,7 @@ my_str::my_str(const char *s)
     // to point to it
 	this->buffer = strdup(s);
 	this->capacity = strlen(s);
+    this->NumAllocations++;
 }
 
 
@@ -333,11 +339,13 @@ my_str::~my_str()
     // call as this particular buffer is empty and we need not perform any
     // memory cleanup
 	if (this->buffer == nullptr)
-		return;
+        return;
 
     // cleans up memory
 	free(this->buffer);
 	this->buffer = nullptr;
 
     this->capacity = 0;
+
+    NumAllocations--;
 }

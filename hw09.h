@@ -6,7 +6,7 @@
 // Instructor: Domingos Begalli
 //
 // Description: Contains header information and class prototypes for the hw09
-// my_str assignment
+// my_str assignment.
 // ============================================================================
 #ifndef	HW09_H
 #define	HW09_H
@@ -14,7 +14,6 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include <string.h>
 #include <exception>
 #include <utility>
 
@@ -29,6 +28,7 @@ class my_str
 	size_t capacity;
 
 	public:
+    static int NumAllocations;
 
 	// one parameter constructor constructs this object from a c-string s
 	// (s is an array of char terminated by '\0') 
@@ -154,8 +154,8 @@ int strcmp(const char* str1, const char * str2); // hw09f10.cpp
 
 char *str2dup(const char *str1, const char *str2); // hw09f11.cpp
 
+// Donnie says: Rah Rahr
+
 // write more test function prototytpes here
-
-
 
 #endif

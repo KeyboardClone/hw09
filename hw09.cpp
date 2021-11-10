@@ -72,10 +72,10 @@ int main()
         std::cout << "Out of range exception: " << e.what() << std::endl;
     }
 
-	// std::cerr << "Net memory allocated at program end: "
-	//    	  << std::NumAllocations << std::endl;
-	// std::cerr << "(should be zero... ";
-	// std::cerr << "positive = mem leak, negative = duplicate delete)\n";
+	std::cerr << "Net memory allocated at program end: "
+	   	  << my_str::NumAllocations << std::endl;
+	std::cerr << "(should be zero... ";
+	std::cerr << "positive = mem leak, negative = duplicate delete)\n";
 
 	return 0;
 }
