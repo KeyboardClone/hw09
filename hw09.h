@@ -132,23 +132,25 @@ inline std::istream& operator>>(std::istream& in, my_str& str)
 // follow the example and write a function to test each method.
 // Name each of these functions so they clearly indicate what they
 // are testing
+my_str copyConstructorTest(my_str l); // hw09f1.cpp
+
+void testReverse(); // hw09f2.cpp
+
+void testIndexOf(); // hw09f3.cpp
+
+void testConcat(); //hw09f4.cpp
+
+void testCompare(); // hw09f5.cpp
+
+void testIndexAccess(); // hw09f6.cpp
+
 char *strdup(const char *s); // hw09f7.cpp
 
 const char *strstr(const char * str1, const char * str2); // hw09f8.cpp
 
 void strrev(char *dest, char *src); // hw09f9.cpp
 
-my_str copyConstructorTest(my_str l);
-
-void testReverse();
-
-void testIndexOf();
-
-void testConcat();
-
-void testCompare();
-
-void testIndexAccess();
+int strcmp(const char* str1, const char * str2); // hw09f10.cpp
 
 // write more test function prototytpes here
 
