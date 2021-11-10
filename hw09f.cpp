@@ -217,20 +217,13 @@ bool my_str::operator==(const char* s) const
 // overloaded "+", concatenates this and s into a new my_str
 my_str my_str::operator+(const my_str & s) const
 {
-    // sets newStr to have as many character positions as both
-    // this and s combined
-	char newStr[this->capacity + s.capacity];
+    // creates a c-string pointer
+	char *freeStr = str2dup(this->buffer, s.buffer);
+    char newStr[this->capacity + s.capacity];
 
-    // concatenates s.buffer onto the end of this->buffer,
-    // so long as this->buffer and s.buffer do not point to null
-    // if either of them do, their part is reduced to ""
-    if (this->buffer != nullptr)
-        strcpy(newStr, this->buffer);
-    else
-        strcpy(newStr, "");
-
-    if (s.buffer != nullptr)
-        strcat(newStr, s.buffer);
+    // transfers the strings in order to free up the dynamic mem
+    strcpy(newStr, freeStr);
+    free(freeStr);
 
     // returns a my_str object using this newly create c-string
 	return my_str(newStr);

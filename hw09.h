@@ -152,6 +152,8 @@ void strrev(char *dest, char *src); // hw09f9.cpp
 
 int strcmp(const char* str1, const char * str2); // hw09f10.cpp
 
+char *str2dup(const char *str1, const char *str2); // hw09f11.cpp
+
 // write more test function prototytpes here
 
 
